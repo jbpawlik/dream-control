@@ -16,7 +16,7 @@ function People(props) {
     props.onNewPersonCreation();
     return firestore.collection('people').add(
       {
-        name: event.target.names.value,
+        name: event.target.name.value,
         location: event.target.location.value, 
       }
     );
@@ -32,6 +32,8 @@ function People(props) {
             name={person.name}
             location={person.location}
             key={person.id}
+            id={person.id}
+            whenPersonClicked={props.onPersonSelection}
             />
         })}
         <div>
@@ -56,27 +58,11 @@ function People(props) {
     return (
       <React.Fragment>
         <p>Remembering...</p>
-        <div>
-          <button onClick={() => props.shoForm(formState)}>Add Person</button>
-          {props.formStatePassedDown ?
-          <form onSubmit={handleNewPersonFormSubmission}>
-            <input
-              type='text'
-              name='name'
-              placeholder='Person Name' />
-            <input
-              type='text'
-              name='location'
-              placeholder='Location' />
-            <button type='submit'>Add Person</button>
-          </form>
-          : "Add form hidden"}
-        </div>
       </React.Fragment>
     )
   }
 }
-  
+
 People.propTypes = {
   onPersonSelection: PropTypes.func
 };

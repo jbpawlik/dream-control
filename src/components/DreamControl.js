@@ -7,13 +7,15 @@ import { withFirestore } from 'react-redux-firebase'
 import { Button } from "react-bootstrap"
 import { render } from '@testing-library/react';
 import { connect } from 'react-redux';
+import Person from './Person'
 
 class DreamControl extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      formVisible: false
+      formVisible: false,
+      selectedPerson: null
     }
   }
 
@@ -33,20 +35,35 @@ class DreamControl extends React.Component {
     console.log("This happened")
   }
 
+  selectPerson = (id) => {
+    console.log(id)
+    const selectedPerson = this.props.mainPeopleList[id];
+    this.setState({
+      selectedPerson: selectedPerson
+    })
+  }
+
 
   render() {
     let formState = this.state.formVisible
-    return (
+    if (this.state.selectedPerson != null) {
+      return (
+        <Person />
+      )
+      } else {
+        return (
       <div>
         <p>Welcome to the dream world! Now in color!</p>
         <People 
           shoForm={this.showForm}
           formStatePassedDown={formState}
           onNewPersonCreation={this.handleAddingNewPersonToList}
+          onPersonSelection={this.selectPerson}
         />
         {/* <IndividualDreams /> */}
       </div>
     )
+    }
   }
 }
 
