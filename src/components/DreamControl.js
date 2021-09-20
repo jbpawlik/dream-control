@@ -46,6 +46,12 @@ class DreamControl extends React.Component {
     });
   }
 
+  handleEditingTicketInList = () => {
+    this.setState({
+      selectedPerson: null
+    });
+  }
+
 
   render() {
     let formState = this.state.formVisible
@@ -56,7 +62,8 @@ class DreamControl extends React.Component {
         <EditPerson 
         name={person.name}
         id={person.id}
-        location={person.location} />
+        location={person.location}
+        onEditPerson={this.handleEditingTicketInList} />
       )
       } else {
         return (
