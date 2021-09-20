@@ -7,7 +7,7 @@ import { withFirestore } from 'react-redux-firebase'
 import { Button } from "react-bootstrap"
 import { render } from '@testing-library/react';
 import { connect } from 'react-redux';
-import Person from './Person'
+import EditPerson from './EditPerson'
 
 class DreamControl extends React.Component {
 
@@ -36,19 +36,27 @@ class DreamControl extends React.Component {
   }
 
   selectPerson = (id) => {
-    console.log(id)
-    const selectedPerson = this.props.mainPeopleList[id];
-    this.setState({
-      selectedPerson: selectedPerson
-    })
+    this.props.firestore.get({collection: 'people', doc: id}).then((person) => {
+      const firestorePerson = {
+        name: person.get("name"),
+        location: person.get("location"),
+        id: person.id
+      }
+      this.setState({selectedPerson: firestorePerson });
+    });
   }
 
 
   render() {
     let formState = this.state.formVisible
     if (this.state.selectedPerson != null) {
+      let person = this.state.selectedPerson
+      console.log(person)
       return (
-        <Person />
+        <EditPerson 
+        name={person.name}
+        id={person.id}
+        location={person.location} />
       )
       } else {
         return (
@@ -80,4 +88,4 @@ const mapStateToProps = state => {
 
 DreamControl = connect(mapStateToProps)(DreamControl)
 
-export default DreamControl
+export default withFirestore(DreamControl);
