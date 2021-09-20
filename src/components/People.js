@@ -2,43 +2,83 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Button } from "react-bootstrap"
 import { v4 } from 'uuid';
-
+import { useSelector } from 'react-redux'
+import { useFirestoreConnect, useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
+import Person from './Person'
 
 function People(props) {
+  const firestore = useFirestore();
+
   let formState = props.FormStatePassedDown
 
-  function handleNewPersonFormSubmission(event) {
+  function addPersonToFireStore(event) {
     event.preventDefault();
-    props.onNewTicketCreation({
-      name: event.target.name.value,
-      location: event.target.location.value,
-      id: v4()
-    })
+    props.onNewPersonCreation();
+    return firestore.collection('people').add(
+      {
+        name: event.target.names.value,
+        location: event.target.location.value, 
+      }
+    );
   }
 
-  return(
-    <div>
-      <p>A list of people will go here.</p>
-      <button onClick={() => props.shoForm(formState)} >Add person</button>
-      {props.formStatePassedDown ?
-      // add person below
-      <form onSubmit={props.formSubmissionHandler}>
-        <input
-          type='text'
-          name='name'
-          placeholder='Person Name' />
-        <input
-          type='text'
-          name='location'
-          placeholder='Location' />
-        <button type='submit'>add person</button>
-      </form>
-
-      // add person above
-       : "no it doesn't"}
-    </div>
-  )
-
+  useFirestoreConnect([ { collection: 'people' } ])
+  const people = useSelector(state => state.firestore.ordered.people);
+  if (isLoaded(people)) {
+    return (
+      <React.Fragment>
+        {people.map((person) => {
+          return <Person
+            name={person.name}
+            location={person.location}
+            key={person.id}
+            />
+        })}
+        <div>
+          <button onClick={() => props.shoForm(formState)}>Add person</button>
+          {props.formStatePassedDown ?
+          <form onSubmit={addPersonToFireStore}>
+            <input
+              type='text'
+              name='name'
+              placeholder='Person Name' />
+            <input
+              type='text'
+              name='location'
+              placeholder='Location' />
+            <button type='submit'>Add Person</button>
+          </form>
+          : "Add form hidden"}
+        </div>
+      </React.Fragment>
+    )
+  } else {
+    return (
+      <React.Fragment>
+        <p>Remembering...</p>
+        <div>
+          <button onClick={() => props.shoForm(formState)}>Add Person</button>
+          {props.formStatePassedDown ?
+          <form onSubmit={handleNewPersonFormSubmission}>
+            <input
+              type='text'
+              name='name'
+              placeholder='Person Name' />
+            <input
+              type='text'
+              name='location'
+              placeholder='Location' />
+            <button type='submit'>Add Person</button>
+          </form>
+          : "Add form hidden"}
+        </div>
+      </React.Fragment>
+    )
+  }
 }
+  
+People.propTypes = {
+  onPersonSelection: PropTypes.func
+};
 
-export default People
+export default People;

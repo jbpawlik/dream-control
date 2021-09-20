@@ -2,9 +2,11 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { propTypes } from 'react-bootstrap/esm/Image'
 import People from './People'
-import IndividualMemories from './IndividualDreams'
+import IndividualDreams from './IndividualDreams'
 import { withFirestore } from 'react-redux-firebase'
 import { Button } from "react-bootstrap"
+import { render } from '@testing-library/react';
+import { connect } from 'react-redux';
 
 class DreamControl extends React.Component {
 
@@ -27,6 +29,11 @@ class DreamControl extends React.Component {
     }
   }
 
+  handleAddingNewPersonToList = (newPerson) => {
+    console.log("This happened")
+  }
+
+
   render() {
     let formState = this.state.formVisible
     return (
@@ -35,11 +42,25 @@ class DreamControl extends React.Component {
         <People 
           shoForm={this.showForm}
           formStatePassedDown={formState}
+          onNewPersonCreation={this.handleAddingNewPersonToList}
         />
-        <IndividualMemories />
+        {/* <IndividualDreams /> */}
       </div>
     )
   }
 }
+
+DreamControl.propTypes = {
+  mainPeopleList: PropTypes.object,
+  mainDreamList: PropTypes.object
+}
+const mapStateToProps = state => {
+  return {
+  mainPeopleList: state.mainPeopleList,
+  mainDreamList: state.mainDreamList
+  }
+}
+
+DreamControl = connect(mapStateToProps)(DreamControl)
 
 export default DreamControl

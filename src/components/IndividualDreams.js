@@ -1,7 +1,28 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Button } from "react-bootstrap"
+import { v4 } from 'uuid';
+import { useSelector } from 'react-redux'
+import { useFirestoreConnect, isLoaded, isEmpty } from 'react-redux-firebase'
+import Dream from './Dream'
 
-function IndividualMemories(props) {
+function IndividualDreams(props) {
+  useFirestoreConnect([
+    { collection: 'dreams' }
+  ])
+  const dreams = useSelector(state => state.firestore.ordered.dreams);
+  if (isLoaded(dreams)) {
+    return (
+      <React.Fragment>
+        {dreams.map((dream) => {
+          return <Dream
+          
+            />
+        })}
+      </React.Fragment>
+    )
+  }
+
 
   return(
     <div>
@@ -11,4 +32,4 @@ function IndividualMemories(props) {
 
 }
 
-export default IndividualMemories
+export default IndividualDreams;

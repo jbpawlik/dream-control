@@ -19,8 +19,23 @@ describe('peopleReducer', () => {
     expect(peopleReducer({}, { type: null})).toEqual({});
   });
 
-  // test('Should successfully add new people to master list', () => {
+  test('Should successfully add new people to master list', () => {
+    action = {
+        type: "ADD_PERSON",
+        name: "Tom",
+        location: "Portland",
+        id: 1
+      }
 
-  // })
+    }
+    expect(personReducer({}, action).toEqual({
+      1: {
+        type: "ADD_PERSON",
+        name: "Tom",
+        location: "Portland",
+        id: 1
+        }
+
+    })
 
 })
