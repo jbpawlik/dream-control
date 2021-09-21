@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useFirestore } from 'react-redux-firebase'
 import Dreams from './Dreams';
+import { Container } from 'react-bootstrap'
 
 function ShowPerson(props) {
   const firestore = useFirestore();
@@ -22,8 +23,12 @@ function formEditPerson(event) {
       <div>
         <h3>{props.name}</h3>
         <h4>{props.location}</h4>
-        {}
-        <Dreams/>
+        <Container>
+        <h1>Dreams Below</h1>
+        <Dreams
+        onNewDreamCreation={props.onNewDreamCreation}
+        personId={props.id}
+        />
         <form onSubmit={formEditPerson}>
             <input
               type='text'
@@ -36,6 +41,7 @@ function formEditPerson(event) {
             <button type='submit'>Add Person</button>
           </form>
       <button onClick={() => props.deletePerson(props.id)}>Click here to Delete!</button>
+      </Container>
       </div>
     </React.Fragment>
   )

@@ -16,7 +16,8 @@ function Dreams(props) {
     return firestore.collection('dreams').add(
       {
         dream: event.target.dream.value,
-        mood: event.target.mood.value, 
+        mood: event.target.mood.value,
+        pId: props.personId 
       }
     );
   }
@@ -40,11 +41,11 @@ function Dreams(props) {
           <form onSubmit={addDreamToFireStore}>
             <input
               type='text'
-              dream='dream'
-              placeholder='Dream Name' />
+              name='dream'
+              placeholder='Dream' />
             <input
               type='text'
-              mood='mood'
+              name='mood'
               placeholder='Mood' />
             <button type='submit'>Add Dream</button>
           </form>

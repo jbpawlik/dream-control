@@ -35,6 +35,11 @@ class DreamControl extends React.Component {
     console.log("This happened")
   }
 
+  handleAddingNewDreamToList = (newDream) => {
+    console.log("Dream Added")
+    this.setState({})
+  }
+
   selectPerson = (id) => {
     this.props.firestore.get({collection: 'people', doc: id}).then((person) => {
       const firestorePerson = {
@@ -71,7 +76,9 @@ class DreamControl extends React.Component {
         id={person.id}
         location={person.location}
         onEditPerson={this.handleEditingTicketInList} 
-        deletePerson={this.deletePerson}/>
+        deletePerson={this.deletePerson}
+        onNewDreamCreation={this.handleAddingNewDreamToList}
+        />
       )
       } else {
         return (

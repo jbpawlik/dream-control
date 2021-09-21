@@ -1,6 +1,6 @@
 import './App.css';
 import React from 'react'
-// import 'bootstrap/dist/css/boostrap.min.css'
+import 'bootstrap/dist/css/boostrap.min.css'
 import DreamControl from "./DreamControl"
 
 
