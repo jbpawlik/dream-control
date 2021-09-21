@@ -1,13 +1,13 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { propTypes } from 'react-bootstrap/esm/Image'
-import People from './People'
-import IndividualDreams from './Dreams'
-import { withFirestore } from 'react-redux-firebase'
-import { Button } from "react-bootstrap"
+import React from 'react';
+import PropTypes from 'prop-types';
+import { propTypes } from 'react-bootstrap/esm/Image';
+import People from './People';
+import Dreams from './Dreams';
+import { withFirestore } from 'react-redux-firebase';
+import { Button } from "react-bootstrap";
 import { render } from '@testing-library/react';
 import { connect } from 'react-redux';
-import EditPerson from './EditPerson'
+import ShowPerson from './ShowPerson';
 
 class DreamControl extends React.Component {
 
@@ -66,7 +66,7 @@ class DreamControl extends React.Component {
       let person = this.state.selectedPerson
       console.log(person)
       return (
-        <EditPerson 
+        <ShowPerson 
         name={person.name}
         id={person.id}
         location={person.location}
@@ -83,7 +83,7 @@ class DreamControl extends React.Component {
           onNewPersonCreation={this.handleAddingNewPersonToList}
           onPersonSelection={this.selectPerson}
         />
-        {/* <IndividualDreams /> */}
+        {/* Dreams /> */}
       </div>
     )
     }

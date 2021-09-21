@@ -15,7 +15,7 @@ function Dreams(props) {
     props.onNewDreamCreation();
     return firestore.collection('dreams').add(
       {
-        name: event.target.name.value,
+        dream: event.target.dream.value,
         mood: event.target.mood.value, 
       }
     );
@@ -28,28 +28,26 @@ function Dreams(props) {
       <React.Fragment>
         {dreams.map((dream) => {
           return <Dream
-            name={dream.name}
+            dream={dream.dream}
             mood={dream.mood}
             key={dream.id}
             id={dream.id}
+            pId={dream.pId}
             whenDreamClicked={props.onDreamSelection}
             />
         })}
         <div>
-          <button onClick={() => props.shoForm(formState)}>Add Dream</button>
-          {props.formStatePassedDown ?
           <form onSubmit={addDreamToFireStore}>
             <input
               type='text'
-              name='name'
+              dream='dream'
               placeholder='Dream Name' />
             <input
               type='text'
-              name='location'
-              placeholder='Location' />
+              mood='mood'
+              placeholder='Mood' />
             <button type='submit'>Add Dream</button>
           </form>
-          : "Add form hidden"}
         </div>
       </React.Fragment>
     )

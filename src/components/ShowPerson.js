@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useFirestore } from 'react-redux-firebase'
+import Dreams from './Dreams';
 
-function EditPerson(props) {
+function ShowPerson(props) {
   const firestore = useFirestore();
 
 
@@ -21,6 +22,8 @@ function formEditPerson(event) {
       <div>
         <h3>{props.name}</h3>
         <h4>{props.location}</h4>
+        {}
+        <Dreams/>
         <form onSubmit={formEditPerson}>
             <input
               type='text'
@@ -38,10 +41,10 @@ function formEditPerson(event) {
   )
 }
 
-EditPerson.propTypes = {
+ShowPerson.propTypes = {
   name: PropTypes.string,
   location: PropTypes.string,
   id: PropTypes.string
 }
 
-export default EditPerson;
+export default ShowPerson;

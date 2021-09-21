@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import DreamControl from './DreamControl';
+
 
 function Dream(props) {
   return (
@@ -15,7 +15,9 @@ function Dream(props) {
 
 Dream.propTypes = {
   name: PropTypes.string,
-  mood: PropTypes.string
+  mood: PropTypes.string,
+  whenDreamClicked: PropTypes.func,
+  id: PropTypes.string
 }
 
 export default Dream;
