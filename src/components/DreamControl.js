@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { propTypes } from 'react-bootstrap/esm/Image'
 import People from './People'
-import IndividualDreams from './IndividualDreams'
+import IndividualDreams from './Dreams'
 import { withFirestore } from 'react-redux-firebase'
 import { Button } from "react-bootstrap"
 import { render } from '@testing-library/react';
@@ -52,6 +52,13 @@ class DreamControl extends React.Component {
     });
   }
 
+  deletePerson = (id) => {
+    this.props.firestore.delete({collection: 'people', doc: id})
+    this.setState({
+      selectedPerson: null
+    })
+  }
+
 
   render() {
     let formState = this.state.formVisible
@@ -63,7 +70,8 @@ class DreamControl extends React.Component {
         name={person.name}
         id={person.id}
         location={person.location}
-        onEditPerson={this.handleEditingTicketInList} />
+        onEditPerson={this.handleEditingTicketInList} 
+        deletePerson={this.deletePerson}/>
       )
       } else {
         return (

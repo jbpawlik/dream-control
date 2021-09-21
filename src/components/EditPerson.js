@@ -32,6 +32,7 @@ function formEditPerson(event) {
               placeholder='Location' />
             <button type='submit'>Add Person</button>
           </form>
+      <button onClick={() => props.deletePerson(props.id)}>Click here to Delete!</button>
       </div>
     </React.Fragment>
   )

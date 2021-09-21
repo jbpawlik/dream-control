@@ -1,7 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Button } from "react-bootstrap"
-import { v4 } from 'uuid';
 import { useSelector } from 'react-redux'
 import { useFirestoreConnect, useFirestore, isLoaded, isEmpty } from 'react-redux-firebase'
 import Person from './Person'
