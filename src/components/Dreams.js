@@ -34,7 +34,7 @@ function Dreams(props) {
             key={dream.id}
             id={dream.id}
             pId={dream.pId}
-            whenDreamClicked={props.onDreamSelection}
+            whenDreamClicked={props.selectDream}
             />
         })}
         <div>

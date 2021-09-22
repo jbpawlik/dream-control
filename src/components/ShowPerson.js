@@ -26,6 +26,7 @@ function formEditPerson(event) {
         <Container>
         <h1>Dreams Below</h1>
         <Dreams
+        selectDream={props.onDreamSelected}
         onNewDreamCreation={props.onNewDreamCreation}
         personId={props.id}
         />

@@ -5,8 +5,7 @@ import PropTypes from 'prop-types';
 function Dream(props) {
   return (
     <React.Fragment>
-      {/* <div onClick = {()=> props.whenDreamClicked(props.id)}> */}
-      <div>
+      <div onClick = {()=> props.whenDreamClicked(props.id)}>
         <h3>{props.dream}</h3>
         <h4>{props.mood}</h4>
       </div>
