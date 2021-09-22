@@ -8,6 +8,7 @@ import { render } from '@testing-library/react';
 import { connect } from 'react-redux';
 import ShowPerson from './ShowPerson';
 import { withFirestore, isLoaded } from 'react-redux-firebase';
+import EditDream from './EditDream';
 
 class DreamControl extends React.Component {
 
@@ -65,10 +66,24 @@ class DreamControl extends React.Component {
     });
   }
 
+  handleEditDream = () => {
+    this.setState({
+      selectedDream: null
+    })
+  }
+
   deletePerson = (id) => {
     this.props.firestore.delete({collection: 'people', doc: id})
     this.setState({
       selectedPerson: null
+    })
+  }
+
+  
+  deleteDream = (id) => {
+    this.props.firestore.delete({collection: 'dreams', doc: id})
+    this.setState({
+      selectedDream: null
     })
   }
 
@@ -92,10 +107,17 @@ class DreamControl extends React.Component {
     }
     if ((isLoaded(auth)) && (auth.currentUser != null)) {
       if (this.state.selectedDream != null) {
+        let dream = this.state.selectedDream
+        let person = this.state.selectedPerson
         return (
-          <EditPerson />
+          <EditDream
+            personPassed={person}
+            dreamPassed={dream}
+            onEditDream={this.handleEditDream}
+            deleteDream={this.deleteDream}
+          />
         )
-        } else if { (this.state.selectedPerson != null) {
+        } else if (this.state.selectedPerson != null) {
         let person = this.state.selectedPerson
         return (
           <ShowPerson 
